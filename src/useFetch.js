@@ -6,12 +6,15 @@ const useFetch = (url) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const abortFetch = new AbortController();
+
     setTimeout(() => {
-      fetch(url)
+      fetch(url, { signal: abortFetch.signal })
         .then((res) => {
           if (!res.ok) {
             // error coming back from server
-            throw Error("could not fetch the data for that resource");
+            console.log("FetchError_404: Could not fetch the data for that resource.");
+            throw Error("FetchError_404: Could not fetch the data for that resource.");
           }
           return res.json();
         })
@@ -20,12 +23,18 @@ const useFetch = (url) => {
           setData(data);
           setError(null);
         })
+        // auto catches network / connection error
         .catch((err) => {
-          // auto catches network / connection error
-          setIsPending(false);
-          setError(err.message);
+          if (err.name === "AbortError") {
+            console.log("FetchError_Aborted: State changed before the the fetch request could be completed. Fetch aborted.");
+          } else {
+            setIsPending(false);
+            setError(err.message);
+          }
         });
     }, 1000);
+
+    return () => abortFetch.abort();
   }, [url]);
 
   return { data, isPending, error };

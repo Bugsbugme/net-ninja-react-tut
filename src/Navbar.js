@@ -1,18 +1,19 @@
+import { Link } from "react-router-dom";
+
 /**
  * It creates a navbar for the blog.
  * @returns A navbar with a title and two links.
  */
 const Navbar = () => {
-  return ( 
+  return (
     <nav className="navbar">
-
-    <h1>The Dojo Blog</h1>
+      <h1>The Dojo Blog</h1>
       <div className="links">
-        <a href="/">Home</a>
-        <a href="/create">New Blog</a>
-    </div>
+        <Link to="/">Home</Link>
+        <Link to="/create">New Blog</Link>
+      </div>
     </nav>
-   );
-}
- 
+  );
+};
+
 export default Navbar;
