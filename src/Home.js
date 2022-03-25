@@ -1,6 +1,10 @@
 import BlogList from "./BlogList";
 import useFetch from "./useFetch";
 
+/**
+ * It fetches the blogs from the server and displays them.
+ * @returns A div with a BlogList component inside.
+ */
 const Home = () => {
   const { error, isPending, data: blogs } = useFetch("http://localhost:8000/blogs");
 

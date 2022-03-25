@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Create a form that allows the user to create a new blog
+ * @returns The return value is a div with a form inside of it. The form has a submit button that is
+ * disabled when the app is pending.
+ */
 const Create = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -8,6 +13,10 @@ const Create = () => {
   const [isPending, setIsPending] = useState(false);
   const navigate = useNavigate();
 
+  /**
+   * It sends a POST request to the server to create a new blog post.
+   * @param e - The event object that was triggered.
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     const blog = { title, body, author };

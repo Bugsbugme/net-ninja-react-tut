@@ -1,10 +1,16 @@
 import { useState, useEffect } from "react";
 
+/**
+ * It fetches data from a URL and returns the data, isPending, and error.
+ * @param url - The URL to fetch.
+ * @returns The data, isPending, and error.
+ */
 const useFetch = (url) => {
   const [data, setData] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
 
+/* A way to cancel a fetch request. */
   useEffect(() => {
     const abortFetch = new AbortController();
 
